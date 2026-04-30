@@ -3,348 +3,554 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro Business Financial Statement (FYE March)</title>
+    <title>Coffee & Waffle Business - Internal & LHDN Statement</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
-            .no-print { display: none; }
+            .no-print { display: none !important; }
             body { background: white; }
             .container { max-width: 100%; width: 100%; padding: 0; margin: 0; }
+            .tab-content { display: block !important; } /* Print both pages if needed */
+            .page-break { page-break-before: always; }
         }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
+        /* LHDN Form Styling */
+        .lhdn-input {
+            width: 140px;
+            text-align: right;
+            border: 1px solid #94a3b8;
+            padding: 2px 8px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            background-color: white;
+        }
+        .lhdn-input:read-only {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: bold;
+        }
+        .lhdn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .lhdn-label {
+            font-size: 0.85rem;
+            color: #1e293b;
+        }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 pb-20">
+<body class="bg-slate-100 font-sans text-slate-800 pb-20">
 
-    <div class="max-w-5xl mx-auto px-4 py-10 container">
+    <div class="max-w-6xl mx-auto px-4 py-8 container">
         
         <!-- Header -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-8">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
-                        ☕ Micro-business Enterprise
+                        ☕ AI CHAN FOODS - Financial Tool
                     </div>
-                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & Tax Guide</h1>
+                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & LHDN Copy</h1>
                     <p class="text-slate-500 mt-1">Period: <span class="font-semibold text-slate-700">1 April 2025 – 31 March 2026</span></p>
                 </div>
                 <button onclick="window.print()" class="no-print bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-sm flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                    Print / Save as PDF
+                    Print / Save
                 </button>
-            </div>
-            
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-slate-100 pt-6">
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Business Name (SSM)</label>
-                    <input type="text" placeholder="e.g. Kopi & Waffle Enterprise" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Owner Name</label>
-                    <input type="text" placeholder="Your Name as per NRIC" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
-                </div>
             </div>
         </div>
 
-        <!-- Part 1: Profit & Loss -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-            <div class="bg-slate-900 text-white px-8 py-5 flex justify-between items-center">
-                <h2 class="text-xl font-semibold">1. Profit & Loss Statement</h2>
-                <span class="text-xs font-medium uppercase tracking-widest text-slate-400 italic">Basis Period: 01/04/2025 - 31/03/2026</span>
+        <!-- Tab Navigation -->
+        <div class="flex space-x-2 mb-6 no-print bg-slate-200/50 p-1 rounded-xl w-fit">
+            <button onclick="switchTab('page1')" id="tab-page1" class="px-6 py-2.5 rounded-lg font-bold text-sm transition-all bg-white text-indigo-700 shadow-sm border border-slate-200">
+                Page 1: Internal Bookkeeping
+            </button>
+            <button onclick="switchTab('page2')" id="tab-page2" class="px-6 py-2.5 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700 hover:bg-slate-200/50">
+                Page 2: LHDN e-Borang Copy
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PAGE 1: INTERNAL BOOKKEEPING -->
+        <!-- ========================================== -->
+        <div id="page1" class="tab-content">
+            <!-- Internal Details Header -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2">Business Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Nama perniagaan</label>
+                        <input type="text" id="biz_name" value="AI CHAN FOODS" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium focus:ring-2 outline-none" oninput="syncText()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">No. Pendaftaran</label>
+                        <input type="text" id="biz_reg" value="202303106465" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Kod perniagaan</label>
+                        <input type="text" id="biz_code" value="47219" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
+                    </div>
+                </div>
             </div>
-            
-            <div class="p-8">
-                <!-- Revenue Section -->
-                <div class="mb-10">
-                    <h3 class="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <div class="w-2 h-2 bg-indigo-600 rounded-full"></div>
-                        A. Total Revenue (Income)
-                    </h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between group">
+
+            <!-- Profit & Loss -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+                <div class="bg-slate-900 text-white px-8 py-5 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold">1. Internal Profit & Loss Statement</h2>
+                </div>
+                
+                <div class="p-8">
+                    <!-- Revenue Section -->
+                    <div class="mb-10">
+                        <h3 class="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-4">A. Total Revenue</h3>
+                        <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-slate-600 group-hover:text-slate-900 transition-colors font-semibold">Total Combined Gross Sales</span>
-                                <p class="text-[10px] text-slate-400 italic">Includes Coffee, Waffles, and all Vendor Food Sales</p>
+                                <span class="text-slate-700 font-semibold">Total Combined Gross Sales</span>
+                                <p class="text-[10px] text-slate-400 italic">Coffee, Waffles & Vendor Foods</p>
                             </div>
                             <div class="flex items-center gap-3">
                                 <span class="text-slate-400 text-sm font-medium">RM</span>
-                                <input type="number" id="sales" oninput="calculatePnL()" class="w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right font-black text-indigo-900 focus:bg-white transition-all" value="0">
+                                <input type="number" id="int_sales" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-right font-black text-indigo-900" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost of Goods Sold -->
+                    <div class="mb-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <h3 class="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">B. Cost of Goods Sold (Purchases)</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-600 italic">Opening Stock (1 April)</span>
+                                <input type="number" id="int_op_stock" oninput="calculateAll()" class="w-32 md:w-48 bg-white border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-700 font-semibold">(+) Total Purchases (Ingredients & Vendor Payments)</span>
+                                <input type="number" id="int_purchases" oninput="calculateAll()" class="w-32 md:w-48 bg-white border border-slate-300 rounded-lg px-3 py-1 text-right font-semibold" value="0">
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-300 pb-3">
+                                <span class="text-slate-600">(-) Closing Stock (31 March)</span>
+                                <input type="number" id="int_cl_stock" oninput="calculateAll()" class="w-32 md:w-48 bg-white border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between pt-2">
+                                <span class="font-bold text-slate-800">Total Gross Profit</span>
+                                <span id="int_gross_profit" class="w-32 md:w-48 px-3 py-1.5 text-right font-black text-xl text-slate-900">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operating Expenses -->
+                    <div>
+                        <h3 class="text-sm font-bold text-rose-600 uppercase tracking-wider mb-4">C. Operating Expenses (Detailed)</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <span class="text-slate-700 font-medium">Rental & Kiosk Fees</span>
+                                <input type="number" id="exp_rent" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <span class="text-slate-700 font-medium">Staff Wages & EPF/SOCSO</span>
+                                <input type="number" id="exp_wages" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <span class="text-slate-700 font-medium">Marketing & Platform Fees (Grab/Panda)</span>
+                                <input type="number" id="exp_marketing" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <!-- Grouped into 'Other Expenses' later -->
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <div>
+                                    <span class="text-slate-700 font-medium">Electricity & Water</span>
+                                    <p class="text-[10px] text-slate-400 italic">Will group to 'Perbelanjaan Lain' in LHDN</p>
+                                </div>
+                                <input type="number" id="exp_utils" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <div>
+                                    <span class="text-slate-700 font-medium">Packaging & Consumables</span>
+                                    <p class="text-[10px] text-slate-400 italic">Will group to 'Perbelanjaan Lain' in LHDN</p>
+                                </div>
+                                <input type="number" id="exp_packaging" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <div>
+                                    <span class="text-slate-700 font-medium">Entertainment & Staff Welfare</span>
+                                    <p class="text-[10px] text-slate-400 italic">Will group to 'Perbelanjaan Lain' in LHDN</p>
+                                </div>
+                                <input type="number" id="exp_ent" oninput="calculateAll()" class="w-32 md:w-48 bg-slate-50 border border-slate-300 rounded-lg px-3 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2 bg-red-50/50 p-2 rounded-lg mt-2">
+                                <div>
+                                    <span class="text-slate-700 font-bold">Owner Salary / Drawings (Ambilan)</span>
+                                    <p class="text-[10px] text-red-500 font-bold italic">Non-allowable for tax (Tidak dibenarkan)</p>
+                                </div>
+                                <input type="number" id="exp_owner_salary" oninput="calculateAll()" class="w-32 md:w-48 bg-white border border-red-200 rounded-lg px-3 py-1 text-right text-red-700 font-semibold" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Net Profit -->
+                    <div class="mt-8 bg-indigo-50 p-6 rounded-xl border border-indigo-100 flex justify-between items-center">
+                        <span class="text-indigo-900 font-bold text-lg">Net Profit / (Loss)</span>
+                        <span id="int_net_profit" class="text-3xl font-black text-indigo-900">0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Balance Sheet (Internal) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-800 text-white px-8 py-5">
+                    <h2 class="text-xl font-semibold">2. Internal Assets Tracking</h2>
+                </div>
+                <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Non-Current Assets</h3>
+                        <div class="space-y-3 mb-8">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-700">Coffee & Waffle Machines (Kelengkapan / Equipment)</span>
+                                <input type="number" id="int_asset_machine" oninput="calculateAll()" class="w-32 border border-slate-300 rounded px-2 py-1 text-right" value="0">
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-700">Renovation / Signage (Aset Lain)</span>
+                                <input type="number" id="int_asset_reno" oninput="calculateAll()" class="w-32 border border-slate-300 rounded px-2 py-1 text-right" value="0">
+                            </div>
+                        </div>
+
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Current Assets</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-700">Closing Stock</span>
+                                <span id="int_sync_stock" class="text-slate-500 font-bold pr-2">0.00</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-700">Cash in Hand / Bank (Tunai)</span>
+                                <input type="number" id="int_asset_cash" oninput="calculateAll()" class="w-32 border border-slate-300 rounded px-2 py-1 text-right" value="0">
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Cost of Goods Sold -->
-                <div class="mb-10 p-6 bg-slate-50 rounded-xl border border-slate-100">
-                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">B. Cost of Goods Sold (Purchases)</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-slate-600 italic">Opening Stock (1 April 2025)</span>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" id="opening_stock" oninput="calculatePnL()" class="w-32 md:w-48 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-right" value="0">
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <span class="text-slate-600 font-semibold">(+) Total Combined Purchases</span>
-                                <p class="text-[10px] text-slate-400 italic">Core Ingredients + Payments to Food Vendors</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" id="purchases" oninput="calculatePnL()" class="w-32 md:w-48 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-right font-semibold" value="0">
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-                            <span class="text-slate-600">(-) Closing Stock (31 March 2026)</span>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" id="closing_stock" oninput="calculatePnL()" class="w-32 md:w-48 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-right" value="0">
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between pt-2">
-                            <div class="text-slate-800">
-                                <p class="font-bold">Total Gross Profit</p>
-                                <p class="text-[10px] text-slate-500 italic">Overall margin after vendor payouts</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm font-bold">RM</span>
-                                <span id="gross_profit" class="w-32 md:w-48 px-3 py-1.5 text-right font-black text-xl text-slate-900">0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Operating Expenses -->
-                <div>
-                    <h3 class="text-sm font-bold text-rose-600 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <div class="w-2 h-2 bg-rose-600 rounded-full"></div>
-                        C. Monthly Operating Expenses
-                    </h3>
-                    <div class="space-y-4" id="expense-list">
-                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                            <div>
-                                <p class="text-slate-700 font-medium">Rental & Kiosk Fees</p>
-                                <p class="text-[10px] text-slate-400 italic">Shop or Booth rental</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                            <div>
-                                <p class="text-slate-700 font-medium">Electricity & Water</p>
-                                <p class="text-[10px] text-slate-400 italic">Utilities for machines & lighting</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                            <div>
-                                <p class="text-slate-700 font-medium">Packaging & Consumables</p>
-                                <p class="text-[10px] text-slate-400 italic">Cups, Boxes, Napkins</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                            <div>
-                                <p class="text-slate-700 font-medium">Staff Wages & EPF/SOCSO</p>
-                                <p class="text-[10px] text-slate-400 italic">Baristas & Cashiers</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                            <div>
-                                <p class="text-slate-700 font-medium">Entertainment & Staff Welfare</p>
-                                <p class="text-[10px] text-slate-400 italic">Dinners for staff & stakeholders</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right font-medium text-slate-900" oninput="calculatePnL()" value="0">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
-                            <div>
-                                <p class="text-slate-700 font-medium">Marketing & Platform Fees</p>
-                                <p class="text-[10px] text-slate-400 italic">Grab/Panda commissions</p>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-slate-400 text-sm">RM</span>
-                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Final Net Profit -->
-                <div class="mt-12 bg-indigo-50 p-8 rounded-2xl border border-indigo-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div class="text-center md:text-left">
-                        <p class="text-indigo-900 font-bold text-lg">Net Profit / (Loss)</p>
-                        <p class="text-indigo-600 text-xs">Final figure to be declared to LHDN</p>
-                    </div>
-                    <div class="flex items-baseline gap-2">
-                        <span class="text-indigo-400 font-bold text-xl uppercase">RM</span>
-                        <span id="net_profit" class="text-5xl font-black text-indigo-900 tracking-tighter">0.00</span>
-                    </div>
-                </div>
+            </div>
+            
+            <!-- Go to Page 2 Button -->
+            <div class="mt-8 flex justify-end no-print">
+                <button onclick="switchTab('page2')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-sm flex items-center gap-2">
+                    Proceed to LHDN Copy (Page 2)
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
             </div>
         </div>
 
-        <!-- Part 2: Assets (Coffee Machine handling) -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-            <div class="bg-slate-800 text-white px-8 py-5 flex justify-between items-center">
-                <h2 class="text-xl font-semibold">2. Balance Sheet (Assets)</h2>
-                <span class="text-xs font-medium uppercase tracking-widest text-slate-400 italic">Status as at 31/03/2026</span>
+        <!-- ========================================== -->
+        <!-- PAGE 2: LHDN e-BORANG COPY -->
+        <!-- ========================================== -->
+        <div id="page2" class="tab-content hidden page-break">
+            
+            <!-- Back to Page 1 Button -->
+            <div class="mb-4 flex justify-start no-print">
+                <button onclick="switchTab('page1')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 px-5 py-2.5 rounded-lg font-bold text-sm transition-all shadow-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Back to Page 1
+                </button>
             </div>
-            <div class="p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div>
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Non-Current Assets (Equipment)</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <div class="text-slate-700">
-                                    <p class="font-medium">Coffee & Waffle Machines</p>
-                                    <p class="text-[10px] text-slate-400 italic">Tax claimable via Capital Allowance</p>
-                                </div>
-                                <input type="number" id="asset_value" oninput="updateCA()" placeholder="0.00" class="w-32 bg-slate-50 border border-slate-200 rounded px-2 py-1 text-right text-sm">
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-700">Renovation / Signage</span>
-                                <input type="number" placeholder="0.00" class="w-32 bg-slate-50 border border-slate-200 rounded px-2 py-1 text-right text-sm">
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="bg-amber-50 p-6 rounded-xl border border-amber-100 no-print">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xs font-bold text-amber-700 uppercase tracking-widest flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></svg>
-                                Capital Allowance
-                            </h3>
-                            <div class="flex flex-col items-end">
-                                <label class="text-[10px] text-amber-600 font-bold uppercase mb-1">Small Value Asset?</label>
-                                <select id="is_small_value" onchange="updateCA()" class="text-xs bg-white border border-amber-200 rounded px-1 py-0.5 focus:outline-none">
-                                    <option value="no">No (Claim via %)</option>
-                                    <option value="yes">Yes (100% Claim)</option>
-                                </select>
-                            </div>
+            <div class="bg-white border border-slate-300 p-2 shadow-sm mb-4 no-print text-sm text-center font-medium text-amber-800 bg-amber-50">
+                ⚠️ Use this page strictly to copy numbers into the LHDN MyTax portal. Do not edit fields here directly.
+            </div>
+
+            <!-- LHDN Form Container (Styled like the screenshot) -->
+            <div class="bg-white border border-slate-400 p-8 text-sm">
+                
+                <!-- Section Header -->
+                <div class="bg-gray-200 border-y border-slate-400 text-center font-bold py-2 mb-4">
+                    MAKLUMAT KEWANGAN ORANG PERSEORANGAN (PERNIAGAAN UTAMA SAHAJA)
+                </div>
+
+                <!-- Business Info Box -->
+                <div class="border border-slate-400 mb-6">
+                    <div class="flex border-b border-slate-400">
+                        <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Nama perniagaan</div>
+                        <div class="w-3/4 p-2 font-bold" id="lhdn_biz_name">AI CHAN FOODS</div>
+                    </div>
+                    <div class="flex border-b border-slate-400">
+                        <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Jenis No. Pendaftaran</div>
+                        <div class="w-1/4 p-2 border-r border-slate-400">SSM</div>
+                        <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400 text-center">No. Pendaftaran</div>
+                        <div class="w-1/4 p-2 text-right font-bold" id="lhdn_biz_reg">202303106465</div>
+                    </div>
+                    <div class="flex border-b border-slate-400">
+                        <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Kod perniagaan</div>
+                        <div class="w-1/4 p-2 font-bold" id="lhdn_biz_code">47219</div>
+                        <div class="w-2/4"></div>
+                    </div>
+                    <div class="flex">
+                        <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Jenis aktiviti perniagaan</div>
+                        <div class="w-3/4 p-2 font-bold uppercase">JUALAN MAKANAN SIAP (KIOSK JUALAN MAKANAN)</div>
+                    </div>
+                </div>
+
+                <div class="text-center font-bold mb-4">PENYATA KEDUDUKAN KEWANGAN / UNTUNG RUGI</div>
+
+                <!-- Two Column Layout -->
+                <div class="flex flex-col lg:flex-row gap-12">
+                    
+                    <!-- Left Column: P&L -->
+                    <div class="w-full lg:w-1/2">
+                        <h4 class="font-bold mb-4">PENYATA UNTUNG ATAU RUGI</h4>
+                        
+                        <div class="lhdn-row mb-6">
+                            <span class="lhdn-label">Jualan atau perolehan</span>
+                            <input type="text" id="lhdn_sales" class="lhdn-input" readonly>
                         </div>
                         
-                        <p class="text-xs text-amber-900 leading-relaxed mb-4">
-                            Claiming for the <span id="asset_name_ref">Coffee Machine</span>.
-                        </p>
-
-                        <div class="space-y-2 text-xs font-mono">
-                            <div id="standard_ca_view">
-                                <div class="flex justify-between border-b border-amber-200 pb-1">
-                                    <span>Initial Allowance (20%):</span>
-                                    <span id="ia_val">RM 0.00</span>
-                                </div>
-                                <div class="flex justify-between border-b border-amber-200 pb-1 mt-1">
-                                    <span>Annual Allowance (14%):</span>
-                                    <span id="aa_val">RM 0.00</span>
-                                </div>
-                            </div>
-                            <div id="small_value_view" class="hidden">
-                                <div class="flex justify-between border-b border-amber-200 pb-1">
-                                    <span>Small Value Allowance (100%):</span>
-                                    <span id="sv_val">RM 0.00</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between font-bold text-amber-900 pt-1 border-t border-amber-300 mt-2">
-                                <span>Total Tax Deduction:</span>
-                                <span id="total_ca">RM 0.00</span>
-                            </div>
+                        <h4 class="font-bold mb-2">TOLAK :</h4>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Inventori awal</span>
+                            <input type="text" id="lhdn_op_stock" class="lhdn-input" readonly>
                         </div>
-                        <p class="text-[10px] text-amber-600 mt-4 italic">
-                            *Small Value Assets (cost &le; RM2,000) can be claimed 100% in Year 1.
-                        </p>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Belian dan kos pengeluaran</span>
+                            <input type="text" id="lhdn_purchases" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Inventori akhir</span>
+                            <input type="text" id="lhdn_cl_stock" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row mb-4">
+                            <span class="lhdn-label pl-4">Kos jualan</span>
+                            <input type="text" id="lhdn_cogs" class="lhdn-input font-bold" readonly>
+                        </div>
+
+                        <div class="lhdn-row font-bold mb-8">
+                            <span>UNTUNG / RUGI KASAR</span>
+                            <input type="text" id="lhdn_gross_profit" class="lhdn-input font-bold" readonly>
+                        </div>
+
+                        <!-- Income block skipped to save space (defaults 0) -->
+
+                        <h4 class="font-bold mb-4 mt-8 border-t border-slate-400 pt-4">PERBELANJAAN :</h4>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Faedah pinjaman</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Gaji dan upah</span>
+                            <input type="text" id="lhdn_wages" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Sewa/pajakan</span>
+                            <input type="text" id="lhdn_rent" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Kontrak dan subkontrak</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Komisen</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Hutang lapuk</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Perjalanan dan pengangkutan</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Pembaikan dan penyelenggaraan</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Promosi dan iklan</span>
+                            <input type="text" id="lhdn_promo" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row mb-4">
+                            <span class="lhdn-label font-medium text-indigo-700">Perbelanjaan-perbelanjaan lain</span>
+                            <input type="text" id="lhdn_other_exp" class="lhdn-input text-indigo-900 bg-indigo-50 font-bold" readonly title="Includes Utilities, Packaging & Entertainment">
+                        </div>
+
+                        <div class="lhdn-row font-bold mb-4">
+                            <span>JUMLAH PERBELANJAAN</span>
+                            <input type="text" id="lhdn_total_exp" class="lhdn-input font-bold" readonly>
+                        </div>
+                        <div class="lhdn-row font-bold text-lg bg-gray-100 p-1 mb-2">
+                            <span>UNTUNG / RUGI BERSIH</span>
+                            <input type="text" id="lhdn_net_profit" class="lhdn-input bg-transparent border-none text-right font-black" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label">Perbelanjaan yang tidak dibenarkan</span>
+                            <input type="text" id="lhdn_non_allowable" value="0" class="lhdn-input text-red-700 font-medium" readonly title="Owner Salary automatically added back">
+                        </div>
                     </div>
+
+                    <!-- Right Column: Balance Sheet -->
+                    <div class="w-full lg:w-1/2">
+                        <h4 class="font-bold mb-4">ASET BUKAN SEMASA :</h4>
+                        
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Tanah dan bangunan</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Loji dan jentera</span>
+                            <input type="text" id="lhdn_asset_loji" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Kenderaan</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row mb-4">
+                            <span class="lhdn-label pl-4 text-indigo-700">Aset bukan semasa lain</span>
+                            <input type="text" id="lhdn_asset_lain" class="lhdn-input" readonly title="Includes Coffee Machine & Renovation">
+                        </div>
+                        
+                        <div class="lhdn-row font-bold mb-8">
+                            <span>JUMLAH ASET BUKAN SEMASA:</span>
+                            <input type="text" id="lhdn_total_fixed_asset" class="lhdn-input font-bold" readonly>
+                        </div>
+
+                        <h4 class="font-bold mb-4">ASET SEMASA :</h4>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4 text-indigo-700">Inventori</span>
+                            <input type="text" id="lhdn_asset_inv" class="lhdn-input" readonly title="Closing Stock">
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Penghutang perdagangan</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4">Penghutang lain</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row">
+                            <span class="lhdn-label pl-4 text-indigo-700">Baki tunai (in hand/bank)</span>
+                            <input type="text" id="lhdn_asset_tunai" class="lhdn-input" readonly>
+                        </div>
+                        <div class="lhdn-row mb-4">
+                            <span class="lhdn-label pl-4">Aset semasa lain</span>
+                            <input type="text" value="0" class="lhdn-input" readonly>
+                        </div>
+
+                        <div class="lhdn-row font-bold mb-6">
+                            <span>JUMLAH ASET SEMASA:</span>
+                            <input type="text" id="lhdn_total_current_asset" class="lhdn-input font-bold" readonly>
+                        </div>
+
+                        <div class="lhdn-row font-bold text-lg bg-gray-100 p-1">
+                            <span>JUMLAH ASET</span>
+                            <input type="text" id="lhdn_total_assets" class="lhdn-input bg-transparent border-none text-right font-black" readonly>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-
-        <!-- Tax Tip Footer -->
-        <div class="mt-8 p-6 bg-slate-100 rounded-xl border border-slate-200 no-print">
-            <h4 class="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                Filing Tip: Combined Records
-            </h4>
-            <p class="text-xs text-slate-600 leading-relaxed mb-3">
-                If you group your vendor and core products together:
-            </p>
-            <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
-                <li><strong>Gross Sales:</strong> Ensure your daily cash-up or Z-report includes the total money taken from both waffles/coffee and the vendor food.</li>
-                <li><strong>Vendor Payments:</strong> Even if you don't track the *selling* price separately, keep all invoices/receipts from the vendors as proof of your **Purchases** to justify the lower profit margin.</li>
-                <li><strong>Entertainment:</strong> Remember that staff treats are 100% deductible, while dinners with stakeholders/vendors are limited to 50%.</li>
-            </ul>
         </div>
 
     </div>
 
     <script>
-        function calculatePnL() {
-            const sales = parseFloat(document.getElementById('sales').value) || 0;
-            const opening = parseFloat(document.getElementById('opening_stock').value) || 0;
-            const purchases = parseFloat(document.getElementById('purchases').value) || 0;
-            const closing = parseFloat(document.getElementById('closing_stock').value) || 0;
-            const cogs = opening + purchases - closing;
-            const grossProfit = sales - cogs;
-            document.getElementById('gross_profit').innerText = grossProfit.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-            let totalExpenses = 0;
-            const expenseInputs = document.querySelectorAll('.expense-input');
-            expenseInputs.forEach(input => { totalExpenses += (parseFloat(input.value) || 0); });
-            const netProfit = grossProfit - totalExpenses;
-            const netProfitDisplay = document.getElementById('net_profit');
-            netProfitDisplay.innerText = netProfit.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-            if (netProfit < 0) { netProfitDisplay.classList.add('text-red-600'); } else { netProfitDisplay.classList.remove('text-red-600'); }
+        // Formating helper (LHDN format doesn't use decimals for main input lines usually, but we keep standard commas)
+        function fmt(num) {
+            if (isNaN(num)) return "0";
+            // LHDN usually rounds to nearest RM
+            return Math.round(num).toLocaleString('en-US'); 
         }
 
-        function updateCA() {
-            const cost = parseFloat(document.getElementById('asset_value').value) || 0;
-            const isSmallValue = document.getElementById('is_small_value').value === 'yes';
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
             
-            const standardView = document.getElementById('standard_ca_view');
-            const smallView = document.getElementById('small_value_view');
-            const totalDisplay = document.getElementById('total_ca');
-
-            if (isSmallValue) {
-                standardView.classList.add('hidden');
-                smallView.classList.remove('hidden');
-                document.getElementById('sv_val').innerText = 'RM ' + cost.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-                totalDisplay.innerText = 'RM ' + cost.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-            } else {
-                standardView.classList.remove('hidden');
-                smallView.classList.add('hidden');
-                const ia = cost * 0.20; 
-                const aa = cost * 0.14; 
-                const total = ia + aa;
-                document.getElementById('ia_val').innerText = 'RM ' + ia.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-                document.getElementById('aa_val').innerText = 'RM ' + aa.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-                totalDisplay.innerText = 'RM ' + total.toLocaleString('en-MY', { minimumFractionDigits: 2 });
-            }
+            document.getElementById('tab-page1').className = "px-6 py-2.5 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700 hover:bg-slate-200/50";
+            document.getElementById('tab-page2').className = "px-6 py-2.5 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700 hover:bg-slate-200/50";
+            
+            document.getElementById('tab-' + tabId).className = "px-6 py-2.5 rounded-lg font-bold text-sm transition-all bg-white text-indigo-700 shadow-sm border border-slate-200";
         }
 
-        calculatePnL();
-        updateCA();
+        function syncText() {
+            document.getElementById('lhdn_biz_name').innerText = document.getElementById('biz_name').value || '-';
+            document.getElementById('lhdn_biz_reg').innerText = document.getElementById('biz_reg').value || '-';
+            document.getElementById('lhdn_biz_code').innerText = document.getElementById('biz_code').value || '-';
+        }
+
+        function calculateAll() {
+            // 1. Get Base P&L Values
+            const sales = parseFloat(document.getElementById('int_sales').value) || 0;
+            const op_stock = parseFloat(document.getElementById('int_op_stock').value) || 0;
+            const purchases = parseFloat(document.getElementById('int_purchases').value) || 0;
+            const cl_stock = parseFloat(document.getElementById('int_cl_stock').value) || 0;
+            
+            // 2. Calculate P&L
+            const cogs = op_stock + purchases - cl_stock;
+            const grossProfit = sales - cogs;
+            
+            // Internal UI Updates (P&L)
+            document.getElementById('int_sync_stock').innerText = cl_stock.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+            document.getElementById('int_gross_profit').innerText = grossProfit.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+
+            // 3. Get Expenses
+            const w_rent = parseFloat(document.getElementById('exp_rent').value) || 0;
+            const w_wages = parseFloat(document.getElementById('exp_wages').value) || 0;
+            const w_marketing = parseFloat(document.getElementById('exp_marketing').value) || 0;
+            
+            const w_utils = parseFloat(document.getElementById('exp_utils').value) || 0;
+            const w_pack = parseFloat(document.getElementById('exp_packaging').value) || 0;
+            const w_ent = parseFloat(document.getElementById('exp_ent').value) || 0;
+            const w_owner = parseFloat(document.getElementById('exp_owner_salary').value) || 0;
+            
+            // Grouping "Other Expenses" for LHDN
+            const grouped_other_exp = w_utils + w_pack + w_ent + w_owner;
+            const total_exp = w_rent + w_wages + w_marketing + grouped_other_exp;
+
+            const netProfit = grossProfit - total_exp;
+            
+            // Internal UI Update (Net Profit)
+            const netDisplay = document.getElementById('int_net_profit');
+            netDisplay.innerText = netProfit.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+            if(netProfit < 0) netDisplay.classList.add('text-red-600'); else netDisplay.classList.remove('text-red-600');
+
+            // 4. Get Assets
+            const a_machine = parseFloat(document.getElementById('int_asset_machine').value) || 0;
+            const a_reno = parseFloat(document.getElementById('int_asset_reno').value) || 0;
+            const a_cash = parseFloat(document.getElementById('int_asset_cash').value) || 0;
+            
+            const total_fixed = a_machine + a_reno;
+            const total_current = cl_stock + a_cash; // Inventory is closing stock
+
+            // ==========================================
+            // 5. SYNC TO LHDN PAGE 2 (Using Formatted numbers without decimals for exact copy)
+            // ==========================================
+            
+            document.getElementById('lhdn_sales').value = fmt(sales);
+            document.getElementById('lhdn_op_stock').value = fmt(op_stock);
+            document.getElementById('lhdn_purchases').value = fmt(purchases);
+            document.getElementById('lhdn_cl_stock').value = fmt(cl_stock);
+            document.getElementById('lhdn_cogs').value = fmt(cogs);
+            document.getElementById('lhdn_gross_profit').value = fmt(grossProfit);
+
+            document.getElementById('lhdn_wages').value = fmt(w_wages);
+            document.getElementById('lhdn_rent').value = fmt(w_rent);
+            document.getElementById('lhdn_promo').value = fmt(w_marketing);
+            document.getElementById('lhdn_other_exp').value = fmt(grouped_other_exp); // Magic group!
+            document.getElementById('lhdn_total_exp').value = fmt(total_exp);
+            document.getElementById('lhdn_net_profit').value = fmt(netProfit);
+            document.getElementById('lhdn_non_allowable').value = fmt(w_owner);
+
+            document.getElementById('lhdn_asset_loji').value = fmt(0); // Left as 0, F&B equipment goes to 'Lain'
+            document.getElementById('lhdn_asset_lain').value = fmt(a_machine + a_reno);
+            document.getElementById('lhdn_total_fixed_asset').value = fmt(total_fixed);
+            
+            document.getElementById('lhdn_asset_inv').value = fmt(cl_stock);
+            document.getElementById('lhdn_asset_tunai').value = fmt(a_cash);
+            document.getElementById('lhdn_total_current_asset').value = fmt(total_current);
+            document.getElementById('lhdn_total_assets').value = fmt(total_fixed + total_current);
+        }
+
+        // Initialize calculations on load
+        calculateAll();
+        syncText();
     </script>
 </body>
 </html>
