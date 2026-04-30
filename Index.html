@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee & Waffle Business Financial Statement (FYE March)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+            .container { max-width: 100%; width: 100%; padding: 0; margin: 0; }
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 pb-20">
+
+    <div class="max-w-5xl mx-auto px-4 py-10 container">
+        
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
+                        ☕ Coffee & Waffle Business (Inc. Vendor Foods)
+                    </div>
+                    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & Tax Guide</h1>
+                    <p class="text-slate-500 mt-1">Period: <span class="font-semibold text-slate-700">1 April 2025 – 31 March 2026</span></p>
+                </div>
+                <button onclick="window.print()" class="no-print bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Print / Save as PDF
+                </button>
+            </div>
+            
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-slate-100 pt-6">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Business Name (SSM)</label>
+                    <input type="text" placeholder="e.g. Kopi & Waffle Enterprise" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Owner Name</label>
+                    <input type="text" placeholder="Your Name as per NRIC" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 1: Profit & Loss -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="bg-slate-900 text-white px-8 py-5 flex justify-between items-center">
+                <h2 class="text-xl font-semibold">1. Profit & Loss Statement</h2>
+                <span class="text-xs font-medium uppercase tracking-widest text-slate-400 italic">Basis Period: 01/04/2025 - 31/03/2026</span>
+            </div>
+            
+            <div class="p-8">
+                <!-- Revenue Section -->
+                <div class="mb-10">
+                    <h3 class="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <div class="w-2 h-2 bg-indigo-600 rounded-full"></div>
+                        A. Total Revenue (Income)
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between group">
+                            <div>
+                                <span class="text-slate-600 group-hover:text-slate-900 transition-colors font-semibold">Total Combined Gross Sales</span>
+                                <p class="text-[10px] text-slate-400 italic">Includes Coffee, Waffles, and all Vendor Food Sales</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm font-medium">RM</span>
+                                <input type="number" id="sales" oninput="calculatePnL()" class="w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right font-black text-indigo-900 focus:bg-white transition-all" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost of Goods Sold -->
+                <div class="mb-10 p-6 bg-slate-50 rounded-xl border border-slate-100">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">B. Cost of Goods Sold (Purchases)</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-slate-600 italic">Opening Stock (1 April 2025)</span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" id="opening_stock" oninput="calculatePnL()" class="w-32 md:w-48 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-right" value="0">
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-slate-600 font-semibold">(+) Total Combined Purchases</span>
+                                <p class="text-[10px] text-slate-400 italic">Core Ingredients + Payments to Food Vendors</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" id="purchases" oninput="calculatePnL()" class="w-32 md:w-48 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-right font-semibold" value="0">
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                            <span class="text-slate-600">(-) Closing Stock (31 March 2026)</span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" id="closing_stock" oninput="calculatePnL()" class="w-32 md:w-48 bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-right" value="0">
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <div class="text-slate-800">
+                                <p class="font-bold">Total Gross Profit</p>
+                                <p class="text-[10px] text-slate-500 italic">Overall margin after vendor payouts</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm font-bold">RM</span>
+                                <span id="gross_profit" class="w-32 md:w-48 px-3 py-1.5 text-right font-black text-xl text-slate-900">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operating Expenses -->
+                <div>
+                    <h3 class="text-sm font-bold text-rose-600 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <div class="w-2 h-2 bg-rose-600 rounded-full"></div>
+                        C. Monthly Operating Expenses
+                    </h3>
+                    <div class="space-y-4" id="expense-list">
+                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+                            <div>
+                                <p class="text-slate-700 font-medium">Rental & Kiosk Fees</p>
+                                <p class="text-[10px] text-slate-400 italic">Shop or Booth rental</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+                            <div>
+                                <p class="text-slate-700 font-medium">Electricity & Water</p>
+                                <p class="text-[10px] text-slate-400 italic">Utilities for machines & lighting</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+                            <div>
+                                <p class="text-slate-700 font-medium">Packaging & Consumables</p>
+                                <p class="text-[10px] text-slate-400 italic">Cups, Boxes, Napkins</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+                            <div>
+                                <p class="text-slate-700 font-medium">Staff Wages & EPF/SOCSO</p>
+                                <p class="text-[10px] text-slate-400 italic">Baristas & Cashiers</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+                            <div>
+                                <p class="text-slate-700 font-medium">Entertainment & Staff Welfare</p>
+                                <p class="text-[10px] text-slate-400 italic">Dinners for staff & stakeholders</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right font-medium text-slate-900" oninput="calculatePnL()" value="0">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-slate-50 pb-2">
+                            <div>
+                                <p class="text-slate-700 font-medium">Marketing & Platform Fees</p>
+                                <p class="text-[10px] text-slate-400 italic">Grab/Panda commissions</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-slate-400 text-sm">RM</span>
+                                <input type="number" class="expense-input w-32 md:w-48 bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-right" oninput="calculatePnL()" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Net Profit -->
+                <div class="mt-12 bg-indigo-50 p-8 rounded-2xl border border-indigo-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="text-center md:text-left">
+                        <p class="text-indigo-900 font-bold text-lg">Net Profit / (Loss)</p>
+                        <p class="text-indigo-600 text-xs">Final figure to be declared to LHDN</p>
+                    </div>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-indigo-400 font-bold text-xl uppercase">RM</span>
+                        <span id="net_profit" class="text-5xl font-black text-indigo-900 tracking-tighter">0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 2: Assets (Coffee Machine handling) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="bg-slate-800 text-white px-8 py-5 flex justify-between items-center">
+                <h2 class="text-xl font-semibold">2. Balance Sheet (Assets)</h2>
+                <span class="text-xs font-medium uppercase tracking-widest text-slate-400 italic">Status as at 31/03/2026</span>
+            </div>
+            <div class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Non-Current Assets (Equipment)</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <div class="text-slate-700">
+                                    <p class="font-medium">Coffee & Waffle Machines</p>
+                                    <p class="text-[10px] text-slate-400 italic">Tax claimable via Capital Allowance</p>
+                                </div>
+                                <input type="number" id="asset_value" oninput="updateCA()" placeholder="0.00" class="w-32 bg-slate-50 border border-slate-200 rounded px-2 py-1 text-right text-sm">
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-700">Renovation / Signage</span>
+                                <input type="number" placeholder="0.00" class="w-32 bg-slate-50 border border-slate-200 rounded px-2 py-1 text-right text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-50 p-6 rounded-xl border border-amber-100 no-print">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xs font-bold text-amber-700 uppercase tracking-widest flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></svg>
+                                Capital Allowance
+                            </h3>
+                            <div class="flex flex-col items-end">
+                                <label class="text-[10px] text-amber-600 font-bold uppercase mb-1">Small Value Asset?</label>
+                                <select id="is_small_value" onchange="updateCA()" class="text-xs bg-white border border-amber-200 rounded px-1 py-0.5 focus:outline-none">
+                                    <option value="no">No (Claim via %)</option>
+                                    <option value="yes">Yes (100% Claim)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <p class="text-xs text-amber-900 leading-relaxed mb-4">
+                            Claiming for the <span id="asset_name_ref">Coffee Machine</span>.
+                        </p>
+
+                        <div class="space-y-2 text-xs font-mono">
+                            <div id="standard_ca_view">
+                                <div class="flex justify-between border-b border-amber-200 pb-1">
+                                    <span>Initial Allowance (20%):</span>
+                                    <span id="ia_val">RM 0.00</span>
+                                </div>
+                                <div class="flex justify-between border-b border-amber-200 pb-1 mt-1">
+                                    <span>Annual Allowance (14%):</span>
+                                    <span id="aa_val">RM 0.00</span>
+                                </div>
+                            </div>
+                            <div id="small_value_view" class="hidden">
+                                <div class="flex justify-between border-b border-amber-200 pb-1">
+                                    <span>Small Value Allowance (100%):</span>
+                                    <span id="sv_val">RM 0.00</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between font-bold text-amber-900 pt-1 border-t border-amber-300 mt-2">
+                                <span>Total Tax Deduction:</span>
+                                <span id="total_ca">RM 0.00</span>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-amber-600 mt-4 italic">
+                            *Small Value Assets (cost &le; RM2,000) can be claimed 100% in Year 1.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Tip Footer -->
+        <div class="mt-8 p-6 bg-slate-100 rounded-xl border border-slate-200 no-print">
+            <h4 class="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Filing Tip: Combined Records
+            </h4>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                Since you group your vendor and core products together:
+            </p>
+            <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
+                <li><strong>Gross Sales:</strong> Ensure your daily cash-up or Z-report includes the total money taken from both waffles/coffee and the vendor food.</li>
+                <li><strong>Vendor Payments:</strong> Even if you don't track the *selling* price separately, keep all invoices/receipts from the vendors as proof of your **Purchases** to justify the lower profit margin.</li>
+                <li><strong>Entertainment:</strong> Remember that staff treats are 100% deductible, while dinners with stakeholders/vendors are limited to 50%.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        function calculatePnL() {
+            const sales = parseFloat(document.getElementById('sales').value) || 0;
+            const opening = parseFloat(document.getElementById('opening_stock').value) || 0;
+            const purchases = parseFloat(document.getElementById('purchases').value) || 0;
+            const closing = parseFloat(document.getElementById('closing_stock').value) || 0;
+            const cogs = opening + purchases - closing;
+            const grossProfit = sales - cogs;
+            document.getElementById('gross_profit').innerText = grossProfit.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+            let totalExpenses = 0;
+            const expenseInputs = document.querySelectorAll('.expense-input');
+            expenseInputs.forEach(input => { totalExpenses += (parseFloat(input.value) || 0); });
+            const netProfit = grossProfit - totalExpenses;
+            const netProfitDisplay = document.getElementById('net_profit');
+            netProfitDisplay.innerText = netProfit.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+            if (netProfit < 0) { netProfitDisplay.classList.add('text-red-600'); } else { netProfitDisplay.classList.remove('text-red-600'); }
+        }
+
+        function updateCA() {
+            const cost = parseFloat(document.getElementById('asset_value').value) || 0;
+            const isSmallValue = document.getElementById('is_small_value').value === 'yes';
+            
+            const standardView = document.getElementById('standard_ca_view');
+            const smallView = document.getElementById('small_value_view');
+            const totalDisplay = document.getElementById('total_ca');
+
+            if (isSmallValue) {
+                standardView.classList.add('hidden');
+                smallView.classList.remove('hidden');
+                document.getElementById('sv_val').innerText = 'RM ' + cost.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+                totalDisplay.innerText = 'RM ' + cost.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+            } else {
+                standardView.classList.remove('hidden');
+                smallView.classList.add('hidden');
+                const ia = cost * 0.20; 
+                const aa = cost * 0.14; 
+                const total = ia + aa;
+                document.getElementById('ia_val').innerText = 'RM ' + ia.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+                document.getElementById('aa_val').innerText = 'RM ' + aa.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+                totalDisplay.innerText = 'RM ' + total.toLocaleString('en-MY', { minimumFractionDigits: 2 });
+            }
+        }
+
+        calculatePnL();
+        updateCA();
+    </script>
+</body>
+</html>
