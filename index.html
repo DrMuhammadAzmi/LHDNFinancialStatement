@@ -57,7 +57,12 @@
                         ☕ AI CHAN FOODS - Financial Tool
                     </div>
                     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & LHDN Copy</h1>
-                    <p class="text-slate-500 mt-1">Period: <span class="font-semibold text-slate-700">1 April 2025 – 31 March 2026</span></p>
+                    <p class="text-slate-500 mt-1 flex items-center gap-2">
+                        <span>Period:</span>
+                        <span id="display_period" class="font-semibold text-slate-700">1 Apr 2025 - 31 Mar 2026</span>
+                        <span class="text-slate-300">|</span>
+                        <span id="display_ya" class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">YA 2026</span>
+                    </p>
                 </div>
                 <button onclick="window.print()" class="no-print bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-sm flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
@@ -95,6 +100,25 @@
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Kod perniagaan</label>
                         <input type="text" id="biz_code" value="47219" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
+                    </div>
+                </div>
+
+                <!-- Calendar Section for YA Calculation -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 border-t border-slate-100 pt-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Tarikh Mula (Start Date)</label>
+                        <input type="date" id="period_start" value="2025-04-01" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none text-slate-700" onchange="updateDates()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Tarikh Akhir (End Date)</label>
+                        <input type="date" id="period_end" value="2026-03-31" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none text-slate-700" onchange="updateDates()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-indigo-400 mb-1">Tahun Taksiran (Assessment Year)</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600 font-bold">YA</span>
+                            <input type="text" id="ya_display" value="2026" class="w-full bg-indigo-50 border border-indigo-200 rounded-lg pl-10 pr-4 py-2 font-black text-indigo-700 outline-none" readonly title="Automatically calculated from the End Date">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,7 +296,10 @@
                 <div class="border border-slate-400 mb-6">
                     <div class="flex border-b border-slate-400">
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Nama perniagaan</div>
-                        <div class="w-3/4 p-2 font-bold" id="lhdn_biz_name">AI CHAN FOODS</div>
+                        <div class="w-3/4 p-2 font-bold flex justify-between">
+                            <span id="lhdn_biz_name">AI CHAN FOODS</span>
+                            <span id="lhdn_ya_badge" class="bg-indigo-100 text-indigo-800 px-2 rounded-sm text-xs border border-indigo-200">Tahun Taksiran: 2026</span>
+                        </div>
                     </div>
                     <div class="flex border-b border-slate-400">
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Jenis No. Pendaftaran</div>
@@ -475,6 +502,28 @@
             document.getElementById('lhdn_biz_code').innerText = document.getElementById('biz_code').value || '-';
         }
 
+        function updateDates() {
+            const startVal = document.getElementById('period_start').value;
+            const endVal = document.getElementById('period_end').value;
+
+            if (startVal && endVal) {
+                const startDate = new Date(startVal);
+                const endDate = new Date(endVal);
+
+                const options = { day: 'numeric', month: 'short', year: 'numeric' };
+                const formattedStart = startDate.toLocaleDateString('en-GB', options);
+                const formattedEnd = endDate.toLocaleDateString('en-GB', options);
+
+                document.getElementById('display_period').innerText = `${formattedStart} - ${formattedEnd}`;
+
+                // YA for sole proprietorships is based on the year the basis period ends
+                const ya = endDate.getFullYear();
+                document.getElementById('ya_display').value = ya;
+                document.getElementById('display_ya').innerText = `YA ${ya}`;
+                document.getElementById('lhdn_ya_badge').innerText = `Tahun Taksiran: ${ya}`;
+            }
+        }
+
         function calculateAll() {
             // 1. Get Base P&L Values
             const sales = parseFloat(document.getElementById('int_sales').value) || 0;
@@ -551,6 +600,7 @@
         // Initialize calculations on load
         calculateAll();
         syncText();
+        updateDates();
     </script>
 </body>
 </html>
