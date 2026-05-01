@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Business - Internal & LHDN Statement</title>
+    <title>Coffee Shop Business - Internal & LHDN Statement</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -54,7 +54,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
-                        ☕ Micro business - Financial Tool
+                        ☕ My Small Company - Financial Tool
                     </div>
                     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & LHDN Copy</h1>
                     <p class="text-slate-500 mt-1 flex items-center gap-2">
@@ -63,21 +63,12 @@
                         <span class="text-slate-300">|</span>
                         <span id="display_ya" class="font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">YA 2026</span>
                     </p>
-              </div>
-                <!-- Action Buttons Container -->
-                <div class="flex items-center gap-3 no-print">
-                    <!-- GitHub Button -->
-                    <a href="drmuhammadazmi.github.io" target="_blank" rel="noopener noreferrer" class="bg-slate-800 hover:bg-slate-900 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-sm flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                        Dr M's Portfolio
-                    </a>
-                    
-                    <!-- Print / Save Button -->
-                    <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-sm flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                        Print / Save
-                    </button>
                 </div>
+                <button onclick="window.print()" class="no-print bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-sm flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Print / Save
+                </button>
+            </div>
         </div>
 
         <!-- Tab Navigation -->
@@ -116,18 +107,22 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 border-t border-slate-100 pt-4">
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Tarikh Mula (Start Date)</label>
-                        <input type="date" id="period_start" value="2025-04-01" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none text-slate-700" onchange="updateDates()">
+                        <input type="date" id="period_start" value="2025-01-01" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none text-slate-700" onchange="updateDates()">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Tarikh Akhir (End Date)</label>
-                        <input type="date" id="period_end" value="2026-03-31" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none text-slate-700" onchange="updateDates()">
+                        <input type="date" id="period_end" value="2025-12-31" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none text-slate-700" onchange="updateDates()">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-indigo-400 mb-1">Tahun Taksiran (Assessment Year)</label>
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600 font-bold">YA</span>
-                            <input type="text" id="ya_display" value="2026" class="w-full bg-indigo-50 border border-indigo-200 rounded-lg pl-10 pr-4 py-2 font-black text-indigo-700 outline-none" readonly title="Automatically calculated from the End Date">
+                            <input type="text" id="ya_display" value="2025" class="w-full bg-indigo-50 border border-indigo-200 rounded-lg pl-10 pr-4 py-2 font-black text-indigo-700 outline-none" readonly title="Automatically calculated from the End Date">
                         </div>
+                    </div>
+                    <div id="date_warning" class="md:col-span-3 hidden bg-red-50 text-red-700 p-3 rounded-lg border border-red-200 text-xs font-medium flex items-start gap-2 mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <span><strong>LHDN Warning:</strong> Sole Proprietorships (Enterprise) are strictly required to use the calendar year (ending <strong>31 December</strong>) as their basis period. Only Companies (Sdn Bhd) can choose different financial year-ends.</span>
                     </div>
                 </div>
             </div>
@@ -530,6 +525,14 @@
                 document.getElementById('ya_display').value = ya;
                 document.getElementById('display_ya').innerText = `YA ${ya}`;
                 document.getElementById('lhdn_ya_badge').innerText = `Tahun Taksiran: ${ya}`;
+                
+                // Show warning if end date is not Dec 31st
+                const warningEl = document.getElementById('date_warning');
+                if (endDate.getMonth() !== 11 || endDate.getDate() !== 31) {
+                    warningEl.classList.remove('hidden');
+                } else {
+                    warningEl.classList.add('hidden');
+                }
             }
         }
 
