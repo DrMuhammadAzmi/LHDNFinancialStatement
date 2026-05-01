@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Shop Business - Internal & LHDN Statement</title>
+    <title>Coffee & Waffle Business - Internal & LHDN Statement</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -54,7 +54,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
-                        ☕ My Small Company - Financial Tool
+                        ☕ AI CHAN FOODS - Financial Tool
                     </div>
                     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & LHDN Copy</h1>
                     <p class="text-slate-500 mt-1 flex items-center gap-2">
@@ -91,15 +91,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="md:col-span-2">
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Nama perniagaan</label>
-                        <input type="text" id="biz_name" value="Your SSM registered company name" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium focus:ring-2 outline-none" oninput="syncText()">
+                        <input type="text" id="biz_name" placeholder="Your SSM registered company name" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium focus:ring-2 outline-none" oninput="syncText()">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">No. Pendaftaran</label>
-                        <input type="text" id="biz_reg" value="12 digit company registation ID" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
+                        <input type="text" id="biz_reg" placeholder="12 digit company registration ID" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Kod perniagaan</label>
-                        <input type="text" id="biz_code" value="business activity code (eg : 41023)" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
+                        <input type="text" id="biz_code" placeholder="business activity code (eg : 41023)" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
                     </div>
                 </div>
 
@@ -213,7 +213,7 @@
                             <div class="flex items-center justify-between border-b border-slate-100 pb-2 bg-red-50/50 p-2 rounded-lg mt-2">
                                 <div>
                                     <span class="text-slate-700 font-bold">Owner Salary / Drawings (Ambilan)</span>
-                                    <p class="text-[10px] text-red-500 font-bold italic">Non-allowable for tax deduction (Perbelanjaan tidak dibenarkan untuk pengurangan cukai)</p>
+                                    <p class="text-[10px] text-red-500 font-bold italic">Non-allowable for tax (Tidak dibenarkan)</p>
                                 </div>
                                 <input type="number" id="exp_owner_salary" oninput="calculateAll()" class="w-32 md:w-48 bg-white border border-red-200 rounded-lg px-3 py-1 text-right text-red-700 font-semibold" value="0">
                             </div>
@@ -301,7 +301,7 @@
                     <div class="flex border-b border-slate-400">
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Nama perniagaan</div>
                         <div class="w-3/4 p-2 font-bold flex justify-between">
-                            <span id="lhdn_biz_name">AI CHAN FOODS</span>
+                            <span id="lhdn_biz_name">-</span>
                             <span id="lhdn_ya_badge" class="bg-indigo-100 text-indigo-800 px-2 rounded-sm text-xs border border-indigo-200">Tahun Taksiran: 2026</span>
                         </div>
                     </div>
@@ -309,11 +309,11 @@
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Jenis No. Pendaftaran</div>
                         <div class="w-1/4 p-2 border-r border-slate-400">SSM</div>
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400 text-center">No. Pendaftaran</div>
-                        <div class="w-1/4 p-2 text-right font-bold" id="lhdn_biz_reg">202303106465</div>
+                        <div class="w-1/4 p-2 text-right font-bold" id="lhdn_biz_reg">-</div>
                     </div>
                     <div class="flex border-b border-slate-400">
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Kod perniagaan</div>
-                        <div class="w-1/4 p-2 font-bold" id="lhdn_biz_code">47219</div>
+                        <div class="w-1/4 p-2 font-bold" id="lhdn_biz_code">-</div>
                         <div class="w-2/4"></div>
                     </div>
                     <div class="flex">
