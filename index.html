@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee & Waffle Business - Internal & LHDN Statement</title>
+    <title>Coffee Shop Business - Internal & LHDN Statement</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -54,7 +54,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold mb-3 uppercase tracking-wider">
-                        ☕ AI CHAN FOODS - Financial Tool
+                        ☕ Kedai Kopi - Financial Tool
                     </div>
                     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Financial Statement & LHDN Copy</h1>
                     <p class="text-slate-500 mt-1 flex items-center gap-2">
@@ -100,6 +100,10 @@
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Kod perniagaan</label>
                         <input type="text" id="biz_code" placeholder="business activity code (eg : 41023)" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
+                    </div>
+                    <div class="md:col-span-4">
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Jenis aktiviti perniagaan</label>
+                        <input type="text" id="biz_activity" placeholder="e.g. JUALAN MAKANAN SIAP (KIOSK JUALAN MAKANAN)" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2 font-medium outline-none" oninput="syncText()">
                     </div>
                 </div>
 
@@ -318,7 +322,7 @@
                     </div>
                     <div class="flex">
                         <div class="w-1/4 p-2 bg-gray-50 border-r border-slate-400">Jenis aktiviti perniagaan</div>
-                        <div class="w-3/4 p-2 font-bold uppercase">JUALAN MAKANAN SIAP (KIOSK JUALAN MAKANAN)</div>
+                        <div class="w-3/4 p-2 font-bold uppercase" id="lhdn_biz_activity">-</div>
                     </div>
                 </div>
 
@@ -504,6 +508,7 @@
             document.getElementById('lhdn_biz_name').innerText = document.getElementById('biz_name').value || '-';
             document.getElementById('lhdn_biz_reg').innerText = document.getElementById('biz_reg').value || '-';
             document.getElementById('lhdn_biz_code').innerText = document.getElementById('biz_code').value || '-';
+            document.getElementById('lhdn_biz_activity').innerText = document.getElementById('biz_activity').value || '-';
         }
 
         function updateDates() {
